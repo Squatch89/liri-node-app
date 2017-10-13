@@ -4,18 +4,19 @@ const twitter = require('twitter');
 const spotify = require('node-spotify-api');
 const request = require('request');
 
-let command = "";
+const command = process.argv[2];
+let query = "";
 
-for (let i = 2; i < process.argv.length; i ++) {
-    command = command.trim() + " " + process.argv[i];
+for (let i = 3; i < process.argv.length; i ++) {
+    query = query.trim() + " " + process.argv[i];
     console.log(command);
 }
 
 switch (command) {
-    case "my tweets":
+    case "my-tweets":
         twitterFun();
         break;
-    case "spotify this song":
+    case "spotify-this-song":
         spotifyFun();
         break;
     case "movie this":
@@ -58,6 +59,31 @@ function twitterFun() {
 
 function spotifyFun() {
     console.log("spotify was called");
+    const Spotify = new spotify ({
+        id: keys.spotify.clientID,
+        secret: keys.spotify.clientSecret
+    });
+    Spotify.search({type: 'track', query: query, limit: 1}, function(err, data) {
+        if (err) {
+            console.log(err);
+        }
+        console.log("======================================================================");
+        console.log("\n");
+        console.log(`Artist: ${data.tracks.items[0].artists[0].name}`);
+        console.log(`Track Name: ${data.tracks.items[0].name}`);
+        console.log(`Album Name: ${data.tracks.items[0].album.name}`);
+        console.log(`Preview URL: ${data.tracks.items[0].preview_url}`);
+        console.log("\n");
+        console.log("======================================================================");
+        
+    // * Artist(s)
+    //
+    //     * The song's name
+    //
+    //     * A preview link of the song from Spotify
+    //
+    //     * The album that the song is from
+    })
 }
 
 function OMDB() {
