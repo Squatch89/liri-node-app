@@ -8,7 +8,7 @@ const command = process.argv[2];
 let query = "";
 
 for (let i = 3; i < process.argv.length; i++) {
-    query = query.trim() + " " + process.argv[i];
+    query += process.argv[i] + " ";
     console.log(query);
 }
 
@@ -43,7 +43,6 @@ function twitterFun() {
             console.log(err);
         }
         for (let i = 0; i < 20; i++) {
-            
             console.log("======================================================================");
             console.log("\n");
             console.log(tweets[i].created_at);
@@ -51,7 +50,6 @@ function twitterFun() {
             console.log(tweets[i].text);
             console.log("\n");
             console.log("======================================================================");
-            
         }
     })
 }
