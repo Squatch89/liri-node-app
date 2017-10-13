@@ -3,6 +3,7 @@ const keys = require("./keys.js");
 const twitter = require('twitter');
 const spotify = require('node-spotify-api');
 const request = require('request');
+const fs = require('fs');
 
 const command = process.argv[2];
 let query = "";
@@ -21,6 +22,9 @@ switch (command) {
         break;
     case "movie-this":
         OMDB();
+        break;
+    case "do-what-it-says":
+        random();
         break;
     default:
         console.log("Try one of these commands: my-tweets, spotify-this-song, movie-this");
@@ -127,6 +131,19 @@ function OMDB() {
             console.log("======================================================================");
         })
     }
+}
+
+function random() {
+    console.log("random was called");
+    fs.readFile("random.txt", "utf8", function(err, data) {
+        if (err) {
+            console.log(err);
+        }
+        const dataArr = data.split(", ");
+        
+        query = dataArr[1];
     
-    
+        spotifyFun();
+    })
+
 }
