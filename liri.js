@@ -35,13 +35,23 @@ function twitterFun() {
         access_token_secret: keys.twitter.access_token_secret
     });
     
-    const params = {screen_name: 'nodejs'};
+    const params = {screen_name: 'TechManWallace'};
     
     client.get('statuses/user_timeline', params, function(err, tweets, response) {
         if (err) {
             console.log(err);
         }
-        console.log(tweets);
+        for (let i = 0; i < 20; i++) {
+            
+            console.log("======================================================================");
+            console.log("\n");
+            console.log(tweets[i].created_at);
+            console.log("");
+            console.log(tweets[i].text);
+            console.log("\n");
+            console.log("======================================================================");
+            
+        }
         // console.log(JSON.stringify(response));
     })
 }
